@@ -1,5 +1,6 @@
 The really fucking dumb license agreement.
 You can add to this license, you cannot remove from this license.
+
 This license is completely unenforcable.
 This license offers no guarantees what-so-ever.
 This license reserves the right to be incoherant.
@@ -8,7 +9,7 @@ The term "Content"
 	shall be used to refer to any and all project elements stored locally or in version-control, 
 	excluding Meta-Elements as required for the purposes of access to and execution of version-control services and protocols.
 
-the term "End-User" refers to who the fuck ever has access to this license and the Content licensed 
+the term "End-User" refers to who the fuck ever has access to this license and the Content licensed here-[in, under 
 The term "Modified-Content" shall be used to refer to any and all 
 No Content containted 
 All Con
@@ -18,8 +19,20 @@ You are prohibitted from viewing or compiling
 Use, modification, viewing and distribution of an
 
 Element e;
-$cns Meta-Element cme = $meta(e); 	//create a Meta-Element for the the current value of e
-$dyn Meta-Element dme = $meta(e);	//
+$cns Meta-Element cme = $meta(e); 	//create a Meta-Element for the value of e at this moment
+$dyn Meta-Element dme = $meta(e);	//create a Meta-Element for the value of e at what-ever moment dme happens to be used.
+
+
+//This is also nice for string twiddling:
+$cns String foo = ~"@$meta(blah).name; = @blah ~: String;";
+$dyn String bar = ~"@$meta(blah).name; = @blah ~: String;";
+
+//Dynamic values cannot be used as keys.
+[(String key) -> (Value val)] map = TreeMap<~>.new();
+
+map[foo] = some-val; //Oooh, go on then.
+map[bar] = some-other-val; //Or maybe, go fuck yourself.
+map[$const(bar)] = yet-another-val; // there we go.
 
 $ex ?<T> <:() -> ():> {	
 	//an executable, of Mystery-Type T,
@@ -33,9 +46,44 @@ $ex ?<T> <:() -> ():> {
 
 }
 	
+A stream should beging with a start of stream token, all machines should be made to create a transition from the initial state to the initial state on the start of stream token.
+	
+Since the token only appears once this is not an invalid thing to do.
+I don't care if anyone's injecting random start of streams.
+
+That allows a line header to be detected even at the start of the file.
+
 A Tree structure should have some function that returns a set of Paths.
 I should then 
+
+$[cns type] Whaver ?<E ~ Const> {
+}
 	
+$dyn Whaver<T> w = some-whaver;	//No
+$cns Whaver<T> w = some-whaver;	//Sure
+Whaver<T> w = some-whaver;	//As above.
+
+$dyn ?Whaver<?T> whaver-builder = some-whahver ~: Dynamic;
+
+//{
+	Now we're crawling into the roots.
+	We don't have a Whaver, we have something that is shaped like a Whaver, but is subject to change and mutation.
+	We can do whatever we want, then cast it back
+}
+...//Mutate the builder.
+
+Whaver<T> robo-whaver = whaver-builder ~: Const;
+//{
+	This thing still should have the data structure of a Whaver (unless you've done something weird); it's more likely that the data itself is invalid
+	the conversion process will need to validate.
+
+	The ?X Meta-Type is recursive, and singularly applicative.
+	$[cns type] ?<X ~ [Supertype-A, Supertype-B]> ::;
+	
+
+}
+
+
 $type Tree ?<E ~ Const>{
 	$cns Node<E> root;
 	//figure out what syntax should be used for the pathfinder function.
@@ -45,7 +93,7 @@ $type
 $type Eventually ?<T> ~ Task{
 	$[undefined do] <:() -> (T? value):>;
 	$[undefined on-done] ?<T> <: (T value) -> () :> ;
-	$[undefined on-done] 
+	$[undefined on-done] <: () -> () :> ;
 }
 	
 $type Map ?<E ~ <:Key ~ Const, Val ~ Const:>> ~ Tree<E> {
