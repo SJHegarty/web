@@ -78,7 +78,10 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
 	the conversion process will need to validate.
 
 	The ?X Meta-Type is recursive, and singularly applicative.
-	$[cns type] ?<X ~ [Supertype-A, Supertype-B]> ::;
+	$[cns type] ?<X ~ [Supertype-A<E, X>, Supertype-B<C>]> Q<X>::;
+	?X == ??X
+	?X<T> == ?X<?T>
+	X<?T> != ?X<?T>
 	
 
 }
