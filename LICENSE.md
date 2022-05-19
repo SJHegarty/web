@@ -115,7 +115,7 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
 		//Just because an object does not have a value, does not mean that meta information about it does not exist
 		$Auto meta = $Meta-X<T>.new(processed);
 		//Cast the cause for non-existence (the point of the failure to convert) to an error and throw it.
-		$.throw(meta.cause ~: Error);
+		$.throw(meta.why ~: Error);
 	}
 	
 
