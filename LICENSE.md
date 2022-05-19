@@ -90,8 +90,35 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
 	X<T> value = ...;
 	X<?T> builder = value;	//auto-cast in the case of obvious intent, this initialises the builder to the value of the constant.
 	.mutate(builder);
-	X<T> processed = builder;	//Casts descend recursively through the structure converting all dynamic elements and validating.
 	
+	//Casts descend recursively through the structure converting all dynamic elements and validating.
+	
+	//This can throw an exception and returns a compiler warning
+	X<T> processed = builder;
+ 	
+	//This cannot throw an exception
+	X<T>? processed = builder;
+	$.if(processed){
+		...//No error, conversion valid
+		
+		...//Do the things
+	}..
+	$.else{	
+		//{
+			There is no .else system method, parallel compilation fails to find a handler
+			However, the $.if block, having detected that it is continued, processes the block instead.
+
+			In the event that there was a $.else method defined in the universal context (and not just that of continuations),
+			The parallel compiler should attempt to process the code as a independant block
+			However, even in the result of successful compilation, the result will be disgarded as the continuation context takes precedence.
+		}
+		//Just because an object does not have a value, does not mean that meta information about it does not exist
+		$Auto meta = $Meta-X<T>.new(processed);
+		//Cast the cause for non-existence (the point of the failure to convert) to an error and throw it.
+		$.throw(meta.cause ~: Error);
+	}
+	
+
 }
 
 
