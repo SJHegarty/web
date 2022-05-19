@@ -83,7 +83,12 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
 	?X<T> == ?X<?T>
 	X<?T> != ?X<?T>
 	
-
+	Auto unused = .$meta(some-value);	//functions calls start with a dot, system function calls .$
+	X<T> value = ...;
+	X<?T> builder = value;	//auto-cast in the case of obvious intent, this initialises the builder to the value of the constant.
+	.mutate(builder);
+	X<T> processed = builder;	//Casts descend recursively through the structure converting all dynamic elements and validating.
+	
 }
 
 
