@@ -40,8 +40,8 @@ $ex ?<T> <:() -> ():> {
 	//() no args, no return type. Why the generics?
 	
 	Element e;
-	$cns Meta-Element cme = $meta(e); 	//create a 
-	$dyn Meta-Element dme = $meta(e);
+	$cns $Meta-Element cme = $.meta(e); 	//create a 
+	$dyn $Meta-Element dme = $.meta(e);
 	
 
 }
@@ -83,7 +83,10 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
 	?X<T> == ?X<?T>
 	X<?T> != ?X<?T>
 	
-	Auto unused = .$meta(some-value);	//functions calls start with a dot, system function calls .$
+	$Auto unused = .$meta(some-value);	
+	//'$'[A...Z]*<1+>[a...z] system class
+	//'.$'*<1+>[a...z] system funct
+
 	X<T> value = ...;
 	X<?T> builder = value;	//auto-cast in the case of obvious intent, this initialises the builder to the value of the constant.
 	.mutate(builder);
