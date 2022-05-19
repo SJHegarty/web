@@ -98,12 +98,12 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
  	
 	//This cannot throw an exception
 	X<T>? processed = builder;
-	$.if(processed){
+	.$if(processed){
 		...//No error, conversion valid
 		
 		...//Do the things
 	}..
-	$.else{	
+	.$else{	
 		//{
 			There is no .else system method, parallel compilation fails to find a handler
 			However, the $.if block, having detected that it is continued, processes the block instead.
@@ -113,7 +113,7 @@ Whaver<T> robo-whaver = whaver-builder ~: Const;
 			However, even in the result of successful compilation, the result will be disgarded as the continuation context takes precedence.
 		}
 		//Just because an object does not have a value, does not mean that meta information about it does not exist
-		$Auto meta = $Meta-X<T>.new(processed);
+		$Auto meta = $Meta-X<T>.$new(processed);
 		//Cast the cause for non-existence (the point of the failure to convert) to an error and throw it.
 		$.throw(meta.why ~: Error);
 	}
