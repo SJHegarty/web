@@ -30,9 +30,11 @@ $dyn String bar = ~"@$meta(blah).name; = @blah ~: String;";
 //Dynamic values cannot be used as keys.
 [(String key) -> (Value val)] map = TreeMap<~>.new();
 
+$.as(bar, $Const);
+
 map[foo] = some-val; //Oooh, go on then.
 map[bar] = some-other-val; //Or maybe, go fuck yourself.
-map[$const(bar)] = yet-another-val; // there we go.
+map[$.as(bar, $Const)] = yet-another-val; // there we go.
 
 $ex ?<T> <:() -> ():> {	
 	//an executable, of Mystery-Type T,
