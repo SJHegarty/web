@@ -30,11 +30,11 @@ $dyn String bar = ~"@$meta(blah).name; = @blah ~: String;";
 //Dynamic values cannot be used as keys.
 [(String key) -> (Value val)] map = TreeMap<~>.new();
 
-$.as(bar, $Const);
+bar.$as($Const);
 
 map[foo] = some-val; //Oooh, go on then.
 map[bar] = some-other-val; //Or maybe, go fuck yourself.
-map[$.as(bar, $Const)] = yet-another-val; // there we go.
+map[bar.$as($Const)] = yet-another-val; // there we go.
 
 $ex ?<T> <:() -> ():> {	
 	//an executable, of Mystery-Type T,
@@ -42,8 +42,8 @@ $ex ?<T> <:() -> ():> {
 	//() no args, no return type. Why the generics?
 	
 	Element e;
-	$cns $Meta-Element cme = $.meta(e); 	//create a 
-	$dyn $Meta-Element dme = $.meta(e);
+	$cns $Meta-Element cme = .$meta(e); 	//create a 
+	$dyn $Meta-Element dme = .$meta(e);
 	
 
 }
