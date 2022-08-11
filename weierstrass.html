@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+  <p>Before the script...</p>
+
+  <script>
+	const body = document.body;
+	const table = document.createElement('table');
+	table.style.width = '100%';
+
+	function buildWeierstrass(a, b, limit){
+		function weierstrass(x){
+			var rv = 0;
+			for(var n = 0; n < limit; n++){
+				var element = Math.pow(a, n) * Math.cos(Math.pow(b, n) * Math.PI * x);
+				rv += element;
+			}
+			return rv;
+		}
+		return weierstrass;
+	};
+
+	var weier = buildWeierstrass(a, b, 200);
+	
+	function buildVeierstrass(a, b, limit){
+		const y0 = weier(0);
+		function veierstrass(x){
+			var rv = 0;
+			for(var n = 0; n < limit; n++){
+				var bmul = Math.pow(b, n) * Math.PI;
+				var element = -Math.pow(a, n) * Math.cos(bmul * x) / (bmul * bmul);
+				rv += element;
+			}
+			return rv;
+		}
+		return veierstrass;
+	}
+
+	const a = 0.85;
+	const b = 7;
+
+	var veier = buildVeierstrass(a, b, 200);
+
+	const limit = 100;
+	for(var i = 0; i < limit; i++){
+		let x = (i - .5 * limit)/limit;
+		const row = table.insertRow();
+		row.insertCell().appendChild(document.createTextNode(i));
+		row.insertCell().appendChild(document.createTextNode(x));
+		row.insertCell().appendChild(document.createTextNode(weier(x)));
+	}
+
+	body.appendChild(table);	
+  </script>
+
+  <p>...After the script.</p>
+
+</body>
+
+</html>
